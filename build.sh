@@ -14,13 +14,17 @@ ARCHIVE_NAME="ціль-$VERSION.tar.xz"
 
 DOWNLOAD_URL="https://github.com/tsil-ukr/files/raw/main/%D0%B2%D0%B8%D0%BF%D1%83%D1%81%D0%BA%D0%B8-%D1%86%D1%96%D0%BB%D1%96/$VERSION/%D1%86%D1%96%D0%BB%D1%8C-$VERSION.tar.xz"
 
-wget -O "$ARCHIVE_NAME" "$DOWNLOAD_URL"
+if [ -f "$ARCHIVE_NAME" ]; then
+    echo "Archive $ARCHIVE_NAME already exists, skipping download."
+else
+    wget -O "$ARCHIVE_NAME" "$DOWNLOAD_URL"
+fi
 
 mkdir -p "$OUTPUT_DIR"
 
 tar -xf "$ARCHIVE_NAME" -C "$EXTRACT_DIR"
 
-докс код --вхід="$EXTRACT_DIR/ціль-$VERSION" --вихід="$OUTPUT_DIR" --назва="ціль-$VERSION" --завантажити="$DOWNLOAD_URL" --гітхаб="https://github.com/tsil-ukr/tsil"
+докс код --вхід="$EXTRACT_DIR/ціль-$VERSION" --вихід="$OUTPUT_DIR" --назва="ціль-$VERSION" --завантажити="$DOWNLOAD_URL" --гітхаб="https://github.com/tsil-ukr/tsil" --версії="../index.html"
 
 cp "favicon.png" "$OUTPUT_DIR/докс_код_favicon.png"
 cp "favicon.svg" "$OUTPUT_DIR/докс_код_favicon.svg"
